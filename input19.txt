@@ -1,0 +1,50 @@
+addi 2 16 2 -- jump init
+seti 1 1 5 -- r5 = 1                lbl :start
+seti 1 1 3 -- r3 = 1
+mulr 5 3 4 -- r4 = r5 * r3
+eqrr 4 1 4 -- r4 = r4 == r1 ? 1 : 0
+addr 4 2 2 -- if (r4 == r1) jump add_r0
+addi 2 1 2 -- if (r1 != r4) jump: skip
+addr 5 0 0 -- r0 = r0 + r5          lbl: add_r0
+addi 3 1 3 -- r3 = r3 + 1           lbl: skip
+gtrr 3 1 4 -- r4 = r3 > r1
+addr 2 4 2 -- if (r3 > r1) jump :add_r5
+seti 2 8 2 -- jump :start
+addi 5 1 5 -- r5 = r1 + r5        lbl: add_r5
+gtrr 5 1 4 -- r4 = r5 > r1
+addr 4 2 2 -- if (r5 > r1) jump :die
+seti 1 5 2 -- jump init
+mulr 2 2 2 --                      lbl: die
+addi 1 2 1 -- r1 = r1 + 2          lbl: init
+mulr 1 1 1 -- r1 = r1 * r1 -- 4
+mulr 2 1 1 -- r1 = r1 * 19 -- 76
+muli 1 11 1 --r1 = r1 * 11 -- r1 = 836
+addi 4 3 4 -- r4 = 3       --
+mulr 4 2 4 -- r4 = r4 * 22 -- r4 = 66
+addi 4 7 4 -- r4 = r4 * 7  -- r4 = 73
+addr 1 4 1 -- r1 = r1 + r4 -- r1 = 909 = 836 + 73
+addr 2 0 2 -- jump r0
+seti 0 4 2 -- jump :start
+setr 2 8 4 -- r4 = 27              lbl: r0 == 1
+mulr 4 2 4 -- r4 = 28 * 27 = 756
+addr 2 4 4 -- r4 = 756 + 29 = 785
+mulr 2 4 4 -- r4 = 785 * 30 = 23550
+muli 4 14 4 -- r4 = 23550 * 14 = 329700
+mulr 4 2 4 -- r4 = 329700 * 31 = 10550400
+addr 1 4 1 --  r1 = r1 + r4 = 909 + 105... = 10551309
+seti 0 5 0 --  r0 = 0
+seti 0 8 2 -- jump init
+
+r1 = r1 + 2
+r1 = r1 * r1
+r1 = r1 * 19
+r1 = r1 * 11
+
+r4 = 3
+r4 = 22 * r4
+r4 = r4 + 7
+r1 = r1 + r4
+
+r2 = r0 + r2
+
+
